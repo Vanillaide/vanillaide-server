@@ -1,5 +1,5 @@
-exports.signup = () => {};
+exports.postSignUp = () => {};
 
-exports.login = () => {};
+exports.postLogIn = () => {};
 
-exports.logout = () => {};
+exports.postLogOut = () => {};
