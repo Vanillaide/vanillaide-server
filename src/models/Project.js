@@ -19,15 +19,19 @@ const projectSchema = new Schema({
   },
   htmlFile: {
     type: String,
+    default: "",
   },
   cssFile: {
     type: String,
+    default: "",
   },
   jsFile: {
     type: String,
+    default: "",
   },
   deployLink: {
     type: String,
+    default: "",
   },
   deployState: {
     type: deployStateSchema,
