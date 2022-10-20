@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
-});
+const auth = require("./auth");
+const users = require("./users");
+const projects = require("./projects");
+
+router.use("/auth", auth);
+router.use("/users", users);
+router.use("/projects", projects);
 
 module.exports = router;
