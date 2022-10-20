@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
   username: {
@@ -26,6 +27,12 @@ const userSchema = new Schema({
       "비밀번호는 영문 숫자를 포함하여 8 - 20자리이여야 합니다.",
     ],
   },
+});
+
+userSchema.pre("save", async () => {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 5);
+  }
 });
 
 const User = model("User", userSchema);
