@@ -1,4 +1,6 @@
 const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
+
 const REGEX = require("../constants/validateCondition");
 
 const userSchema = new Schema({
@@ -24,6 +26,12 @@ const userSchema = new Schema({
       "You can only use between 8-20 digits of numbers and alphabets",
     ],
   },
+});
+
+userSchema.pre("save", async function () {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 5);
+  }
 });
 
 const User = model("User", userSchema);
