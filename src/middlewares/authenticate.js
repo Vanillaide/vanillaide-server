@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(" ")[1];
-    jwt.verify(token, process.env.JWT_SECRET_KEY);
+    await jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     next();
   } catch (err) {
