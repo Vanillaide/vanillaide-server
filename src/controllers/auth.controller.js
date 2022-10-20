@@ -9,8 +9,9 @@ const ERROR = require("../constants/error");
 
 exports.postAuthCheck = async (req, res, next) => {
   try {
-    const { token } = req.headers;
-    const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(" ")[1];
+    const payload = await jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     if (!payload) {
       return next(createError(400, ERROR.BAD_REQUEST));
