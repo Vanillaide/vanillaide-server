@@ -51,12 +51,12 @@ exports.postProject = async (req, res, next) => {
       return next(createError(400, ERROR.BAD_REQUEST));
     }
 
-    await Project.create({
+    const project = await Project.create({
       creator: userId,
       name: projectName,
     });
 
-    res.status(201).json({ result: "Success" });
+    res.status(201).json({ result: "Success", project });
   } catch (err) {
     next(err);
   }
