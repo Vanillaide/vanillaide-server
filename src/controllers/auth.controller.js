@@ -96,5 +96,3 @@ exports.postLogIn = async (req, res, next) => {
     next(err);
   }
 };
-
-exports.postLogOut = () => {};
