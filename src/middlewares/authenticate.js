@@ -5,7 +5,6 @@ const ERROR = require("../constants/error");
 
 module.exports = async (req, res, next) => {
   try {
-    console.log(req.headers);
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(" ")[1];
     await jwt.verify(token, process.env.JWT_SECRET_KEY);
