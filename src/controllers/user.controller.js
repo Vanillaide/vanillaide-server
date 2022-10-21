@@ -13,9 +13,9 @@ exports.getProjects = async (req, res, next) => {
       return next(createError(400, ERROR.BAD_REQUEST));
     }
 
-    const user = await User.findById(userId);
+    const isUser = await User.exists({ _id: userId });
 
-    if (!user) {
+    if (!isUser) {
       return next(createError(400, ERROR.BAD_REQUEST));
     }
 
