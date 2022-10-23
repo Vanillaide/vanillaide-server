@@ -21,6 +21,14 @@ exports.patchProject = async (req, res, next) => {
       return next(createError(400, ERROR.BAD_REQUEST));
     }
 
+    if (
+      project.htmlFile === html &&
+      project.cssFile === css &&
+      project.jsFile === js
+    ) {
+      return res.status(200).json({ result: "Success" });
+    }
+
     project.htmlFile = html;
     project.cssFile = css;
     project.jsFile = js;
