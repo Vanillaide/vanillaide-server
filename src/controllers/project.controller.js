@@ -57,6 +57,29 @@ exports.deleteProject = async (req, res, next) => {
   }
 };
 
-exports.postDeployment = () => {};
+exports.postDeployment = async (req, res, next) => {
+  try {
+    const { projectId } = req.params;
+
+    if (!projectId || !mongoose.isValidObjectId(projectId)) {
+      return next(createError(400, ERROR.BAD_REQUEST));
+    }
+
+    const project = await Project.findById(projectId);
+
+    if (!project) {
+      return next(createError(400, ERROR.BAD_REQUEST));
+    }
+
+    project.deployLink = `${process.env.BACK_URL}/api/projects/${projectId}/deployment`;
+    project.deployState = { deployedAt: new Date() };
+
+    await project.save();
+
+    res.status(200).json({ result: "Success", deployLink: project.deployLink });
+  } catch (err) {
+    next(err);
+  }
+};
 
 exports.getDeployment = () => {};
