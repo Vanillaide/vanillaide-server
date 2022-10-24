@@ -5,7 +5,7 @@ const now = new Date();
 const oneDayBefore = new Date(now.setDate(now.getDate() - 1));
 
 module.exports = () => {
-  schedule.scheduleJob("* * * * * *", async function () {
+  schedule.scheduleJob("0 * * * *", async function () {
     await Project.updateMany(
       { deployedAt: { $lte: ["$deployedAt", oneDayBefore] } },
       { $set: { deployLink: "" } },
