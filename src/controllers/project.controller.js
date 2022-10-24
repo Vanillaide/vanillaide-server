@@ -72,7 +72,7 @@ exports.postDeployment = async (req, res, next) => {
     }
 
     project.deployLink = `${process.env.BACK_URL}/api/projects/${projectId}/deployment`;
-    project.deployState = { deployedAt: new Date() };
+    project.deployedAt = new Date();
 
     await project.save();
 

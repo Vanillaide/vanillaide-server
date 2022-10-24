@@ -2,10 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const ERROR = require("../constants/error");
 
-const deployStateSchema = new Schema({
-  deployedAt: { type: Date },
-});
-
 const projectSchema = new Schema(
   {
     creator: {
@@ -34,8 +30,9 @@ const projectSchema = new Schema(
       type: String,
       default: "",
     },
-    deployState: {
-      type: deployStateSchema,
+    deployedAt: {
+      type: Date,
+      default: undefined,
     },
   },
   { timestamps: true },
