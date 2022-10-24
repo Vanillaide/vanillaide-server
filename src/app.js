@@ -10,9 +10,13 @@ const indexRouter = require("./routes/index");
 const invalidUrlHandler = require("./middlewares/invalidUrlHandler");
 const errorHandler = require("./middlewares/errorHandler");
 
+const manageDeploymentExpiration = require("./manageDeploymentExpiration");
+
 const app = express();
 
 initLoaders(app);
+
+manageDeploymentExpiration();
 
 app.use("/api", indexRouter);
 
