@@ -89,7 +89,7 @@ exports.getDeployment = async (req, res, next) => {
     return next(createError(400, ERROR.BAD_REQUEST));
   }
 
-  const project = await Project.findById(projectId);
+  const project = await Project.findById(projectId).lean();
 
   if (!project || !project.deployLink) {
     return next(createError(400, ERROR.BAD_REQUEST));
