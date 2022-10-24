@@ -17,7 +17,7 @@ beforeAll(async () => {
     .expect(200);
 });
 
-describe.skip("PATCH /api/projects/:projectId", () => {
+describe("PATCH /api/projects/:projectId", () => {
   it("Succeed to save codes in database", async () => {
     await agent
       .patch(`/api/projects/${testProjectId}`)
@@ -49,7 +49,7 @@ describe.skip("PATCH /api/projects/:projectId", () => {
   });
 });
 
-describe.skip("POST /api/projects/:projectId/deployment", () => {
+describe("POST /api/projects/:projectId/deployment", () => {
   it("Succeed to deploy a project and generate a link", async () => {
     await agent
       .post(`/api/projects/${testProjectId}/deployment`)
