@@ -15,10 +15,8 @@ router
   .patch(patchProject)
   .delete(deleteProject);
 
-router
-  .route("/:projectId/deployment")
-  .all(authenticate)
-  .get(getDeployment)
-  .post(postDeployment);
+router.post("/:projectId/deployment", authenticate, postDeployment);
+
+router.get("/:projectId/deployment", getDeployment);
 
 module.exports = router;

@@ -82,4 +82,18 @@ exports.postDeployment = async (req, res, next) => {
   }
 };
 
-exports.getDeployment = () => {};
+exports.getDeployment = async (req, res, next) => {
+  const { projectId } = req.params;
+
+  if (!projectId || !mongoose.isValidObjectId(projectId)) {
+    return next(createError(400, ERROR.BAD_REQUEST));
+  }
+
+  const project = await Project.findById(projectId);
+
+  if (!project || !project.deployLink) {
+    return next(createError(400, ERROR.BAD_REQUEST));
+  }
+
+  res.render("template", { project });
+};
