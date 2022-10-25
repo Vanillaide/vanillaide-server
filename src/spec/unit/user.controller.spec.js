@@ -18,7 +18,7 @@ beforeEach(() => {
   next = jest.fn();
 });
 
-describe.skip("GetProjects", () => {
+describe("GetProjects", () => {
   beforeEach(() => {
     Project.aggregate = jest.fn();
     User.exists = jest.fn();
@@ -88,7 +88,7 @@ describe.skip("GetProjects", () => {
   });
 });
 
-describe.only("PostProject", () => {
+describe("PostProject", () => {
   beforeEach(() => {
     User.findById = jest.fn();
     Project.create = jest.fn();
