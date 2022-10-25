@@ -16,102 +16,7 @@ beforeEach(() => {
   next = jest.fn();
 });
 
-describe("User.findOne in postSignUp", () => {
-  beforeEach(() => {
-    User.findOne = jest.fn();
-    res = {
-      status: jest.fn(() => res),
-      json: jest.fn(),
-    };
-  });
-
-  afterEach(() => {
-    User.findOne.mockClear();
-  });
-
-  it("Should not call User.findOne when req.body is not provided", async () => {
-    req.body = undefined;
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should not call User.findOne when username is not provided", async () => {
-    req.body.username = undefined;
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should not call User.findOne when username is not valid username", async () => {
-    req.body.username = "ㅓ";
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Don't call User.findOne when email is not provided", async () => {
-    req.body.email = undefined;
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should not call User.findOne when email is not valid email", async () => {
-    req.body.email = "aaaa@aaa.com";
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should not call User.findOne when password is not provided", async () => {
-    req.body.password = undefined;
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should not call User.findOne when password is not valid password", async () => {
-    req.body.password = "a2";
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should not call User.findOne when passwordConfirm is not provided", async () => {
-    req.body.passwordConfirm = undefined;
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should call User.findOne when passwordConfirm is not valid passwordConfirm", async () => {
-    req.body.passwordConfirm = "i2";
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-
-  it("Should not call User.findOne when passwordConfirm do not match password", async () => {
-    req.body.passwordConfirm = "abcde12345";
-    req.body.password = "bcde012345";
-    await postSignUp(req, res, next);
-
-    expect(next).toBeCalled();
-    expect(User.findOne).not.toBeCalled();
-  });
-});
-
-describe("User.create in postSignUp", () => {
+describe("postSignUp", () => {
   beforeEach(() => {
     User.findOne = jest.fn();
     User.create = jest.fn();
@@ -126,11 +31,138 @@ describe("User.create in postSignUp", () => {
     User.create.mockClear();
   });
 
+  it("Should not call User.findOne when req.body.username is not provided", async () => {
+    req.body = {
+      username: undefined,
+      email: "abc@gmail.com",
+      password: "icecream123",
+      passwordConfirm: "icecream123",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should not call User.findOne when req.body.username is not valid username", async () => {
+    req.body = {
+      username: "ㅓ",
+      email: "bread@gmail.com",
+      password: "breakfast123",
+      passwordConfirm: "breakfast123",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should not call User.findOne when req.body.email is not provided", async () => {
+    req.body = {
+      username: "Sally",
+      email: undefined,
+      password: "oioi12345",
+      passwordConfirm: "oioi12345",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should not call User.findOne when email is not valid email", async () => {
+    req.body = {
+      username: "Danny",
+      email: "aaa.uio",
+      password: "helloworld123",
+      passwordConfirm: "helloworld123",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should not call User.findOne when password is not provided", async () => {
+    req.body = {
+      username: "Catherine",
+      email: "havefun@gmail.com",
+      password: undefined,
+      passwordConfirm: "goodnight123",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should not call User.findOne when password is not valid password", async () => {
+    req.body = {
+      username: "Shawn",
+      email: "greener@gmail.com",
+      password: "a2",
+      passwordConfirm: "a2",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should not call User.findOne when passwordConfirm is not provided", async () => {
+    req.body = {
+      username: "Hailey",
+      email: "hailey13@gmail.com",
+      password: "bluesky789",
+      passwordConfirm: undefined,
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should call User.findOne when passwordConfirm is not valid passwordConfirm", async () => {
+    req.body = {
+      username: "Sunny",
+      email: "sunnyday@gmail.com",
+      password: "shinyday123",
+      password: "shi",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
+  it("Should not call User.findOne when passwordConfirm do not match password", async () => {
+    req.body = {
+      username: "Emily",
+      email: "emily@gmail.com",
+      password: "bcde012345",
+      passwordConfirm: "abcde12345",
+    };
+
+    await postSignUp(req, res, next);
+
+    expect(next).toBeCalled();
+    expect(User.findOne).not.toBeCalled();
+  });
+
   it("Should not call User.create when registered user exists with req.body.email", async () => {
     req.body = {
       username: "JohnDarick",
       email: "john@gmail.com",
       password: "cdefg789",
+      passwordConfirm: "cdefg789",
     };
 
     User.findOne.mockReturnValue(sampleUser);
