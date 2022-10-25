@@ -67,6 +67,10 @@ exports.postLogIn = async (req, res, next) => {
   try {
     const { email, password } = req.headers;
 
+    if (!email || !password) {
+      return next(createError(400, ERROR.BAD_REQUEST));
+    }
+
     const user = await User.findOne(
       { email },
       "username email password",

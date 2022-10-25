@@ -95,10 +95,10 @@ exports.getDeployment = async (req, res, next) => {
     const project = await Project.findById(projectId).lean();
 
     if (!project || !project.deployLink) {
-      return next(createError(400, ERROR.BAD_REQUEST));
+      return res.render("notFound");
     }
 
-    res.render("template", { project });
+    res.render("deployedProject", { project });
   } catch (err) {
     next(err);
   }
