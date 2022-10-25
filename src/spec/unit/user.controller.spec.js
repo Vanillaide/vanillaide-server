@@ -58,7 +58,7 @@ describe("GetProjects", () => {
     expect(Project.aggregate).not.toBeCalled();
   });
 
-  it("Return json data with null when Project.aggregate return null", async () => {
+  it("Return json with null when Project.aggregate return null", async () => {
     req.params.userId = "6355f48d6de65991d07789fe";
     User.exists.mockReturnValue({ _id: "6355f48d6de65991d07789fe" });
     Project.aggregate.mockReturnValue(null);
