@@ -7,6 +7,7 @@ const {
   deleteProject,
   getDeployment,
   postDeployment,
+  postPerformance,
 } = require("../controllers/project.controller");
 
 router
@@ -18,5 +19,7 @@ router
 router.post("/:projectId/deployment", authenticate, postDeployment);
 
 router.get("/:projectId/deployment", getDeployment);
+
+router.post("/:projectId/performance", authenticate, postPerformance);
 
 module.exports = router;
