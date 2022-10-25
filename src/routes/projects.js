@@ -7,8 +7,8 @@ const {
   deleteProject,
   getDeployment,
   postDeployment,
+  postPerformance,
 } = require("../controllers/project.controller");
-const { postPerformance } = require("../controllers/project.controller");
 
 router
   .route("/:projectId")
