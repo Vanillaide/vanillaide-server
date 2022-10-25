@@ -65,9 +65,6 @@ describe("GetProjects", () => {
 
     await getProjects(req, res, next);
 
-    expect(next).not.toBeCalled();
-    expect(User.exists).toBeCalled();
-    expect(Project.aggregate).toBeCalled();
     expect(res.status).toBeCalledWith(200);
     expect(res.json).toBeCalledWith({ projects: null });
   });
@@ -80,9 +77,6 @@ describe("GetProjects", () => {
 
     await getProjects(req, res, next);
 
-    expect(next).not.toBeCalled();
-    expect(User.exists).toBeCalled();
-    expect(Project.aggregate).toBeCalled();
     expect(res.status).toBeCalledWith(200);
     expect(res.json).toBeCalledWith({ projects });
   });
@@ -151,7 +145,6 @@ describe("PostProject", () => {
     await postProject(req, res, next);
 
     expect(next).toBeCalled();
-    expect(User.findById).toBeCalledWith(req.params.userId);
     expect(Project.create).not.toBeCalled();
   });
 
@@ -166,12 +159,6 @@ describe("PostProject", () => {
 
     await postProject(req, res, next);
 
-    expect(next).not.toBeCalled();
-    expect(User.findById).toBeCalledWith(req.params.userId);
-    expect(Project.create).toBeCalledWith({
-      creator: req.params.userId,
-      name: req.body.projectName,
-    });
     expect(res.status).toBeCalledWith(201);
     expect(res.json).toBeCalledWith({
       result: "Success",
