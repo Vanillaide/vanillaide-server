@@ -3,7 +3,7 @@ const request = require("supertest");
 const app = require("../../app");
 
 const randomString = Math.random().toString(36).substring(2, 12);
-const testUserId = process.env.TEST_USER_OBJECTID;
+const testUserId = process.env.TEST_USER_ID;
 const testProjectId = process.env.TEST_PROJECT_ID;
 
 describe("POST /api/auth/signup", () => {

@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../app");
 
-const testUserId = process.env.TEST_USER_OBJECTID;
+const testUserId = process.env.TEST_USER_ID;
 let agent;
 
 beforeAll(async () => {
