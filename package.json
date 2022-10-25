@@ -20,10 +20,10 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
+    "lighthouse": "^9.6.7",
     "mongoose": "^6.6.5",
     "morgan": "~1.9.1",
-    "node-schedule": "^2.1.0",
-    "lighthouse": "^9.6.7"
+    "node-schedule": "^2.1.0"
   },
   "devDependencies": {
     "eslint": "^8.25.0",
