@@ -236,7 +236,7 @@ describe("postLogIn", () => {
     }));
 
     bcrypt.compare.mockReturnValue(true);
-    jwt.sign.mockReturnValue(true);
+    jwt.sign.mockReturnValue("token");
 
     await postLogIn(req, res, next);
 
