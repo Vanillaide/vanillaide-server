@@ -8,7 +8,7 @@ const {
   getDeployment,
   postDeployment,
 } = require("../controllers/project.controller");
-const { postPerformance } = require("../controllers/performance.controller");
+const { postPerformance } = require("../controllers/project.controller");
 
 router
   .route("/:projectId")

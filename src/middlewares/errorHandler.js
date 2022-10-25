@@ -6,7 +6,6 @@ module.exports = (err, req, res, _) => {
   }
 
   if (err.status >= 400 && err.status < 500) {
-    console.log("errorhandler", err);
     return res.status(err.status).json({ error: ERROR.BAD_REQUEST });
   }
 
