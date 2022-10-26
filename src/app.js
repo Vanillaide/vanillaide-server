@@ -18,6 +18,10 @@ initLoaders(app);
 
 manageDeploymentExpiration();
 
+app.get("/", (req, res) => {
+  res.status(200).json({ result: "Success" });
+});
+
 app.use("/api", indexRouter);
 
 app.use(invalidUrlHandler);
