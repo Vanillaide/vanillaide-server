@@ -6,3 +6,5 @@
 .idea
 
 .jest/setEnvVars.js
+
+/.husky/_/
