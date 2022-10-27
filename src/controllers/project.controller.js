@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const createError = require("http-errors");
 const lighthouse = require("lighthouse");
-const chromeLauncher = require("chrome-launcher");
+const puppeteer = require("puppeteer");
+const { URL } = require("url");
 
 const Project = require("../models/Project");
 const ERROR = require("../constants/error");
@@ -112,22 +113,19 @@ exports.postPerformance = async (req, res, next) => {
       return next(createError(400, ERROR.BAD_REQUEST));
     }
 
-    const chrome = await chromeLauncher.launch({
-      chromeFlags: ["--headless"],
+    const url = `${process.env.BACK_URL}/api/projects/${projectId}/deployment`;
+
+    const browser = await puppeteer.launch({
+      headless: true,
     });
 
-    const options = {
-      logLevel: "info",
+    const lighthouseResult = await lighthouse(url, {
+      port: new URL(browser.wsEndpoint()).port,
       output: "json",
-      port: chrome.port,
-    };
+      logLevel: "info",
+    });
 
-    const lighthouseResult = await lighthouse(
-      `${process.env.BACK_URL}/api/projects/${projectId}/deployment`,
-      options,
-    );
-
-    await chrome.kill();
+    await browser.close();
 
     const {
       categories: {
